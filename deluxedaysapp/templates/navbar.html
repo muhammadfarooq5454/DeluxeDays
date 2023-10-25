@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-md navbar-dark">
+    <a class="navbar-brand" href="{%url 'index' %}"></a>
+    <button class="navbar-toggler" id="button_toggle" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample05">
+      <ul class="navbar-nav ml-auto pl-lg-5 pl-0 mx-auto text-center">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about' %}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blogs' %}">Blogs</a>
+        </li>
+        <li class="nav-item d-flex flex-column">
+          <a class="nav-link">Gallery <div style="color: #ffffb1; font-size: 14px; font-weight: bolder;"> Coming Soon!</div></a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto mx-auto">
+        <li class="nav-item download-btn">
+          <a class="nav-link" href="#">Download Now</a>
+        </li>
+      </ul>
+
+    </div>
+</nav>
+
+<script>
+
+    const toggle_button = document.getElementById('button_toggle');
+    const collapsing = document.getElementById('navbarsExample05');
+
+    toggle_button.addEventListener('click', () => {
+        if(toggle_button.classList.contains('collapsed')){
+            collapsing.classList.add('show');
+            toggle_button.classList.remove('collapsed');
+        }
+        else if(collapsing.classList.contains('show')){
+            collapsing.classList.remove('show');
+            toggle_button.classList.add('collapsed');
+        }
+        else{
+            collapsing.classList.add('show');
+        }
+      });
+
+  </script>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load static  %}
+
+{% block title %}BLOG{% endblock %}
+
+{% block content %}
+
+    {% include 'header.html' with title='Blogs' %}
+
+    <section class="blog mx-auto my-5 container">
+        <h3 class="mb-4 text-center">What they say about us</h3>
+        <div class="row">
+
+            {% for blog in blogs %}
+            <div class="col col-md-4 p-3">
+                <div class="review-box p-4">
+                    {% if blog.image %}
+                        <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+                    {% endif %}
+                    <h5>{{ blog.title }}</h5>
+                    <p>{{ blog.content }}</p>
+                    <span>{{ blog.published_date }} - {{ blog.read_duration }} read</span>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        </div>
+    </section>
+
+{% endblock %}

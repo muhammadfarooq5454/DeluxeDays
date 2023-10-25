@@ -1,0 +1,16 @@
+{% autoescape off %}
+
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; padding: 20px;">
+
+    <div style="background-color: #ffffff; border-radius: 10px; padding: 20px;">
+        <h1 style="color: #333;">New Message Received on Website!</h1>
+        <p style="font-size: 16px; color: #777;">Sender Name: {{ fullname }}
+        <p style="font-size: 16px; color: #777;">Sender Email: {{ email }}</p>
+        <p style="font-size: 16px; color: #777;">Sender Phone: {{ phone }}</p>
+        <blockquote style="font-size: 18px; color: #333; border-left: 2px solid #007BFF; padding-left: 15px;">
+            {{ message }}
+        </blockquote>
+    </div>
+</body>
+
+{% endautoescape %}

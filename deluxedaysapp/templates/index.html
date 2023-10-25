@@ -1,0 +1,375 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}HOME{% endblock %}
+
+{% block content %}
+
+    <header role="banner">
+      {% include 'navbar.html' %}
+      <div class="container">
+        
+        <div class="main row">
+            <div class="text col-md-7">
+              {{ title|safe }}
+              {{ description|safe }}
+              <div class="row">
+                <a href="" class="playstore"></a>
+                <a href="" class="appstore"></a>
+              </div>
+            </div>
+            <div class="col-md-5 d-none d-md-flex align-items-center">
+              <div class="header-img"></div>
+            </div>
+        </div>
+      </div>
+    </header>
+    <div class="stats-bar row mx-auto px-0">
+      <div class="stat col-lg-2 col-md-4">
+        <i class="fa fa-hotel"></i>
+        <div class="count" id="counter" data-value="{{ accomodations }}">0</div>
+        <div class="title">Accommodations</div>
+      </div>
+      <div class="stat col-lg-2 col-md-4">
+        <i class="fa fa-car"></i>
+        <div class="count" id="counter" data-value="{{ cars }}">0</div>
+        <div class="title">Cars</div>
+      </div>
+      <div class="stat col-lg-2 col-md-4">
+        <i class="fa fa-anchor"></i>
+        <div class="count" id="counter" data-value="{{ boats }}">0</div>
+        <div class="title">Boats</div>
+      </div>
+      <div class="stat col-lg-2 col-md-4">
+        <i class="fa fa-anchor"></i>
+        <div class="count" id="counter" data-value="{{ experiences }}">0</div>
+        <div class="title">Experiences</div>
+      </div>
+      <div class="stat col-lg-2 col-md-4">
+        <i class="fa fa-users"></i>
+        <div class="count" id="counter" data-value="{{ users }}">0</div>
+        <div class="title">Trusted Users</div>
+      </div>
+      <div class="stat col-lg-2 col-md-4">
+        <i class="fa fa-anchor"></i>
+        <div class="count" id="counter" data-value="{{ hosts }}">0</div>
+        <div class="title">Verified Hosts</div>
+      </div>
+    </div>
+
+    <section class="about-short container mx-auto">
+      <div class="text text-center">
+        {{ s1Title|safe }}
+        {{ s1Description|safe }}
+      </div>
+      <div class="main-video">
+        <iframe src="https://www.youtube.com/embed/7PAwqItlUzI?cc_load_policy=1&autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; web-share" allowfullscreen></iframe>
+      </div>
+    </section>
+    
+    <section class="contact-short container-fluid row">
+      <h2>Booking your journey has never be easier</h2>
+      <p>Deluxe Days offers an easy and seamless way to plan and book your dream vacation. We have everything you need to create unforgettable memories.</p>
+      <button onclick="goToContactPage()">Contact Us Now</button>
+    </section>
+    
+    <div class="tabs container row mx-auto my-5 text-center justify-content-center">
+      <div class="col-6 col-md-4 px-0">
+        <h4 id="guestToggle" class="tab" onclick="switchToGuest()" active="false">Guest</h4>
+        <div class="tab-line"></div>
+      </div>
+      <div class="col-6 col-md-4 px-0">
+        <h4 id="hostToggle" class="tab" onclick="switchToHost()" active="true">Host</h4>
+      </div>
+    </div>
+
+    <div class="container mb-5 pb-4 px-0 overflow-hidden">
+      <div id="tabContent" class="host-view">
+        <section class="guest container justify-content-center px-0">
+          <section class="services my-4">
+            <h2>Services We Offer</h2>
+            <div class="row my-4 py-3 overflow-hidden">
+
+              <div class="col-lg-3 col-6 px-0 px-sm-3">
+                <div class="box box-accomodation">
+                  <img src="https://img.icons8.com/fluency-systems-regular/ffffff/256/home.png">
+                  <h4>Accomodations</h4>
+                </div>
+              </div>
+              <div class="col-lg-3 col-6 px-0 px-sm-3">
+                <div class="box box-car">
+                  <img src="https://img.icons8.com/fluency-systems-regular/ffffff/256/porsche-911-new.png">
+                  <h4>Car</h4>
+                </div>
+              </div>
+              <div class="col-lg-3 col-6 px-0 px-sm-3">
+                <div class="box box-boat">
+                  <img src="https://img.icons8.com/fluency-systems-regular/ffffff/256/yacht.png">
+                  <h4>Boat</h4>
+                </div>
+              </div>
+              <div class="col-lg-3 col-6 px-0 px-sm-3">
+                <div class="box box-experience">
+                  <img src="https://img.icons8.com/fluency-systems-regular/ffffff/256/taj-mahal.png">
+                  <h4>Experience</h4>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          {% if guestSliders %}
+            <section class="slider-section">
+              {{ guestSliderTitle|safe }}
+              <div id="guestSlides" class="carousel slide">
+                <ol class="carousel-indicators">
+                  {% for slider in guestSliders %}
+                  <li data-target="#guestSlides" data-slide-to="{{ forloop.counter0 }}" 
+                  {% if forloop.counter0 == 0 %} class="active" {% endif %}></li>
+                  {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                  {% for slider in guestSliders %}
+                    <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+                      <div class="step row">
+                        <div class="d-flex flex-column justify-content-center mx-2 col-md-6">
+                          <h4>{{ slider.title }}</h4>
+                          <h3>{{ forloop.counter }}</h3>
+                          {{ slider.description|safe }}
+                        </div>
+                        <img class="d-block col-md-6" src="{{ slider.image.url }}" alt="{{ slider.title }}">
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#guestSlides" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#guestSlides" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+                <div class="design-circles">
+                  <div class="circle-1"></div>
+                  <div class="circle-2"></div>
+                </div>
+              </div>
+            
+              <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>            
+            </section>
+          {% endif %}
+
+          {% for section in guestSections %}
+          <section class="info mx-auto container row px-0">
+            <div class="col col-md-6 p-4 d-flex justify-content-center flex-column 
+            {% if forloop.counter|divisibleby:2 %} order-1 order-md-2 {% endif %}">
+              <div class="mb-md-5 text-center text-md-left">
+                <h3>{{section.title}}</h3>
+                {{section.description|safe}}
+              </div>
+            </div>
+            <div class="col col-md-6 d-flex justify-content-center align-items-center
+            {% if forloop.counter|divisibleby:2 %} order-2 order-md-1 {% endif %}">  
+              {% if section.image %}
+              <img src="{{ section.image.url }}" alt="{{ section.title }}">
+              {% endif %}
+            </div>
+          </section>
+          {% endfor %}
+
+        </section>
+        
+        <section class="host container justify-content-center">
+
+          {% if hostSliders %}
+            <section class="slider-section">
+              {{ hostSliderTitle|safe }}
+              <div id="hostSlides" class="carousel slide">
+                <ol class="carousel-indicators">
+                  {% for slider in hostSliders %}
+                  <li data-target="#hostSlides" data-slide-to="{{ forloop.counter0 }}" 
+                  {% if forloop.counter0 == 0 %} class="active" {% endif %}></li>
+                  {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                  {% for slider in hostSliders %}
+                    <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
+                      <div class="step row">
+                        <div class="d-flex flex-column justify-content-center mx-2 col-md-6">
+                          <h4>{{ slider.title }}</h4>
+                          <h3>{{ forloop.counter }}</h3>
+                          {{ slider.description|safe }}
+                        </div>
+                        <img class="d-block col-md-6" src="{{ slider.image.url }}" alt="{{ slider.title }}">
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#hostSlides" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#hostSlides" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+                <div class="design-circles">
+                  <div class="circle-1"></div>
+                  <div class="circle-2"></div>
+                </div>
+              </div>
+            
+              <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>            
+            </section>
+          {% endif %}
+
+          <section class="host-collaboration">
+            <h2 class="mb-2">Host Collaboration</h2>
+            <h6 class="mb-4">Expand Your Profile and Network</h6>
+            <div class="row mt-5">
+
+              <div class="col col-md-4 px-4">
+                <div class="box">
+                  <img src="https://img.icons8.com/external-flat-icons-vectorslab/256/external-User-Network-marketing-strategy-flat-icons-vectorslab.png">
+                  <h4>Host Network</h4>
+                  <p>Share success and growth opportunities</p>
+                </div>
+              </div>
+              <div class="col col-md-4 px-4">
+                <div class="box">
+                  <img src="https://img.icons8.com/color/256/open-box.png">
+                  <h4>Bundles</h4>
+                  <p>Save time and money and find tailored deals</p>
+                </div>
+              </div>
+              <div class="col col-md-4 px-4">
+                <div class="box">
+                  <img src="https://img.icons8.com/color/256/calendar--v1.png">
+                  <h4>Streamlined Booking</h4>
+                  <p>Quick and efficient bookings and Easy-to-use system</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+          
+          {% for section in hostSections %}
+          <section class="info mx-auto container row px-0">
+            <div class="col col-md-6 p-4 d-flex justify-content-center flex-column 
+            {% if forloop.counter|divisibleby:2 %} order-1 order-md-2 {% endif %}">
+              <div class="mb-md-5 text-center text-md-left">
+                <h3>{{section.title}}</h3>
+                {{section.description|safe}}
+              </div>
+            </div>
+            <div class="col col-md-6 d-flex justify-content-center align-items-center
+            {% if forloop.counter|divisibleby:2 %} order-2 order-md-1 {% endif %}">  
+              {% if section.image %}
+              <img src="{{ section.image.url }}" alt="{{ section.title }}">
+              {% endif %}
+            </div>
+          </section>
+          {% endfor %}
+
+        </section>
+      </div>
+    </div>
+    
+    {% if feedbacks %}
+    <section class="reviews mx-auto my-5 container">
+      <h3 class="mb-4 text-center">What they say about us</h3>
+      <div class="row">
+
+        {% for feedback in feedbacks %}
+        <div class="col col-md-4 p-3">
+          <div class="review-box p-4">
+            <div class="profile">
+              <img src="{{ feedback.profile_image.url }}" alt="{{ feedback.username }}">
+              <h5>{{ feedback.username }}</h5>
+            </div>
+            <p>{{ feedback.feedback }}</p>
+          </div>
+        </div>
+        {% endfor %}      
+
+      </div>
+    </section>
+    {% endif %}
+    
+    <script>
+      window.addEventListener('scroll', function() {
+        var counterElements = document.getElementsByClassName('count');
+        var counterPosition = counterElements[0].getBoundingClientRect().top;
+        var windowHeight = window.innerHeight;
+
+        if (counterPosition < windowHeight) {
+
+        Array.prototype.forEach.call(counterElements, function(counter) {
+          var currentValue = parseInt(counter.textContent);
+          var targetValue = parseInt(counter.getAttribute('data-value'));
+
+          if(currentValue < targetValue)
+          {
+            var interval = setInterval(function() {
+
+            var currentValue = parseInt(counter.textContent);
+
+            difference = targetValue - currentValue;
+
+            if (0 <= difference < 10)
+                difference = 1;
+            else if (10 <= difference < 100)
+              difference = 10;
+            else if (100 <= difference < 1000)
+              difference = 100;
+            else if (1000 <= difference < 10000)
+              difference = 1000;
+
+            counter.textContent = currentValue + difference;
+
+            if (currentValue >= targetValue) {
+              clearInterval(interval);
+            }
+            }, 50);
+          }
+        });
+      }
+      });
+      
+      switchToGuest();
+
+      function switchToGuest()
+      {
+        var tabContent = document.getElementById('tabContent');
+        tabContent.classList.remove('host-view');
+        tabContent.style.height = document.getElementsByClassName('guest')[0].offsetHeight + 'px';
+        document.getElementById('hostToggle').setAttribute('active', 'false');
+        document.getElementById('guestToggle').setAttribute('active', 'true');
+        
+      }
+      function switchToHost()
+      {
+        var tabContent = document.getElementById('tabContent');
+        tabContent.classList.add('host-view');
+        tabContent.style.height = document.getElementsByClassName('host')[0].offsetHeight + 'px';
+        
+        document.getElementById('guestToggle').setAttribute('active', 'false');
+        document.getElementById('hostToggle').setAttribute('active', 'true');
+      }
+
+      $('video').autoplay = true;
+
+      function goToContactPage()
+      {
+        window.location = "{%url 'contact' %}";
+      }
+
+    </script>
+
+{% endblock %}

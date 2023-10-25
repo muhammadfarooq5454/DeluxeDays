@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% load static  %}
+
+{% block title %}ABOUT{% endblock %}
+
+{% block content %}
+
+    {% include 'header.html' with title='About Us' %}
+
+    {% if aboutSections %}
+        {% for section in aboutSections %}
+        <section class="info mx-auto container row justify-content-between">
+            <div class="col col-md-6 d-flex justify-content-center flex-column
+            {% if forloop.counter|divisibleby:2 %} order-1 order-md-2 {% endif %}">
+                <div class="mb-md-4 text-center text-md-left">
+                    <h3>{{ section.title }}</h3>
+                    {{ section.description|safe }}
+                </div>
+            </div>
+            <div class="col col-md-6 d-flex justify-content-center align-items-center
+            {% if forloop.counter|divisibleby:2 %} order-2 order-md-1 {% endif %}">
+            {% if section.image %}
+                <img src="{{ section.image.url }}" alt="{{ section.title }}" class="aboutus_img">
+            {% endif %}
+            </div>
+        </section>
+        {% endfor %}
+    {% endif %}
+
+    <div class="features text-center mt-4">
+        <div class="container my-5 py-4">
+            <h4>Why Choose Us?</h4>
+            <p class="mb-4">These popular destinations have a lot to offer</p>
+            <div class="row">
+                {% for feature in features %}
+                <div class="col-md-4 my-4 px-4">
+                    <img width="120" height="120" src="{{feature.image.url}}" alt="{{feature.title}}"/>
+                    <h5>
+                        {{feature.title}}
+                    </h5>
+                    <p>{{feature.description}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form_portion mb-2">
+            <div class="row">
+                <div class="col col-12 col-lg-6 col-md-3">
+                </div>
+                <div class="col col-12 col-lg-6 col-md-9">
+                    <div class="form-container">
+                        <h2>Get in Touch with Us</h2>
+                        <form action="{% url 'sendMessage' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="row mt-3">
+                                <div class="form-group col-md-6">
+                                    <label for="firstname">First Name</label>
+                                    <input type="text" class="form-control mt-1" id="firstname" name="firstname"
+                                        placeholder="Enter your name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="lastname">LastName</label>
+                                    <input type="text" class="form-control mt-1" id="lastname" name="lastname"
+                                        placeholder="Enter your name">
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="email">Email address</label>
+                                <input type="email" class="form-control mt-1" id="email" 
+                                name="email" placeholder="Enter your email">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" class="form-control mt-1" id="phone" name="phone"
+                                    placeholder="Input your Phone Number in Here">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="message">Message</label>
+                                <textarea class="form-control mt-1" id="message" rows="5" name="message"
+                                    placeholder="Write a message"></textarea>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="submit" class="form_button">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="black-strip my-5">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100">
+                <a href="{{facebookLink.url}}" target="_blank" class="social-link col-2 text-center">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a href="{{instagramLink.url}}" target="_blank" class="social-link col-2 text-center">
+                    <i class="fa fa-instagram"></i>
+                </a>
+                <a href="{{tiktokLink.url}}" target="_blank" class="social-link col-2 text-center">
+                    <i class="tiktok-icon"></i>
+                </a>
+                <a href="{{linkedInLink.url}}" target="_blank" class="social-link col-2 text-center">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% if teamMembers %}
+    <div class="members mt-5">
+        <div class="container">
+            <h3>Team Members</h3>
+            <div class="row">
+                {% for member in teamMembers %}
+                <div class="col-md-4 p-5">
+                    <img src="{{member.profile_image.url}}" alt="{{ member.name }}">
+                    <h5>
+                        {{member.name}}
+                    </h5>
+                    <p>{{member.designation}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}
